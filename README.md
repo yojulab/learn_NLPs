@@ -21,10 +21,9 @@
 | Word2Vec | CBOW, N-gram | Word2Vec(gensim) | [-]() | word_embedding_culture,  |[pdf 1](https://github.com/insightcampus/sesac-nlp/blob/main/32%20%EA%B0%95%EC%9D%98%20-%20%EC%9E%84%EB%B2%A0%EB%94%A9%20(Embedding)%20-%20Word2Vec.pdf), [pdf 2](https://github.com/insightcampus/sesac-nlp/blob/main/33%20%EA%B0%95%EC%9D%98%20-%20%EC%9E%84%EB%B2%A0%EB%94%A9%20(Embedding)%20-%20Word2Vec%20%EC%A7%81%EC%A0%91%EA%B5%AC%ED%98%84.pdf), [ipynb](https://github.com/insightcampus/sesac-nlp/blob/main/ipynb/32%20%EC%8B%A4%EC%8A%B5%20-%20%EC%9E%84%EB%B2%A0%EB%94%A9%20(Embedding)%20-%20Word2Vec.ipynb) |
 | Glove | Glove | Glove(gensim) | [-]() | word_embedding_it.csv, word_embedding_culture.csv |[pdf](https://github.com/insightcampus/sesac-nlp/blob/main/34%20%EA%B0%95%EC%9D%98%20-%20%EC%9E%84%EB%B2%A0%EB%94%A9%20(Embedding)%20-%20GloVe.pdf), [ipynb](https://github.com/insightcampus/sesac-nlp/blob/main/ipynb/34%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8%20-%20%E1%84%8B%E1%85%B5%E1%86%B7%E1%84%87%E1%85%A6%E1%84%83%E1%85%B5%E1%86%BC%20(Embedding)%20-%20GloVe%20%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B3%E1%86%B8.ipynb) |
 | FastText | FastText | 주요 항목 | [-]() | word_embedding_it.csv, word_embedding_culture.csv  |[pdf](), [ipynb]() |
+| tokenizer | ? | nltk, tensorflow, tokenizer | [ipynb](./codes/NLTK.ipynb) | -|:--: |
 | RNN | |kolnpy, tensorflow, LSTM, Bidirectional()| [ipynb](./codes/NaverSentimentAnalysis_LSTM.ipynb), [ipynb loadmodel](./codes/NaverSentimentAnalysis_loadmodel_LSTM.ipynb), [imdb GRU](./codes/imdb_embedding.ipynb),... |Naver 영화 댓글 감성분석, IMDB |[pdf](), [ipynb]() |
 | CNN | text CNN | tensorflow | [-]() | 데이터 |[ipynb](https://colab.research.google.com/github/dipanjanS/nlp_workshop_odsc19/blob/master/Module05%20-%20NLP%20Applications/Project07B%20-%20Text%20Classification%20Deep%20Learning%20CNN%20Models.ipynb) |
+| seq2seq | Seq2Seq|Encoder, Decoder, Teacher Forcing, Tensorflow| [ipynb](./codes/seq2seq.ipynb), [ipynb](./codes/seq2seq_preprocess.ipynb)  | -|[pdf](), [ipynb]()|
 | 종류 | 주제 | 주요 항목 | [-]() | 데이터 |[-]() |
-| seq2seq | :------: |  | [ipynb](./codes/seq2seq.ipynb) | -|:--: |
-| seq2seq | :------: |  | [ipynb](./codes/seq2seq_preprocess.ipynb) | -|:--: |
-| :------: |  | nltk, tensorflow, tokenizer | [ipynb](./codes/NLTK.ipynb) | -|:--: |
 
