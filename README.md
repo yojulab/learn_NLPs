@@ -25,5 +25,5 @@
 | RNN | |kolnpy, tensorflow, LSTM, Bidirectional()| [ipynb](./codes/NaverSentimentAnalysis_LSTM.ipynb), [ipynb loadmodel](./codes/NaverSentimentAnalysis_loadmodel_LSTM.ipynb), [imdb GRU](./codes/imdb_embedding.ipynb),... |Naver 영화 댓글 감성분석, IMDB |[pdf](), [ipynb]() |
 | CNN | text CNN | tensorflow | [-]() | 데이터 |[ipynb](https://colab.research.google.com/github/dipanjanS/nlp_workshop_odsc19/blob/master/Module05%20-%20NLP%20Applications/Project07B%20-%20Text%20Classification%20Deep%20Learning%20CNN%20Models.ipynb) |
 | seq2seq | Seq2Seq|Encoder, Decoder, Teacher Forcing, Tensorflow| [ipynb](./codes/seq2seq.ipynb), [ipynb](./codes/seq2seq_preprocess.ipynb)  | -|[pdf](), [ipynb]()|
+| Transformer | Transformer | 주요 항목 | [-]() | [AI hub](https://aihub.or.kr/sample_data_board) |[pdf](), [ipynb](), [한국어-영어 모델 만들기](https://velog.io/@nawnoes/Transformer%EB%A1%9C-%ED%95%9C%EA%B5%AD%EC%96%B4-%EC%98%81%EC%96%B4-%EB%B2%88%EC%97%AD-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0) |
 | 종류 | 주제 | 주요 항목 | [-]() | 데이터 |[-]() |
-
