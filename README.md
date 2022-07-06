@@ -1,4 +1,7 @@
 ### 강의 내용 참조 : https://github.com/insightcampus/sesac-nlp
+* 주요 참조 
+  * https://gluebenchmark.com/
+
 
 |   종류   |   주제   | 주요 항목 | 작성 |데이터| 참조 |
 | :------: | :------: | --------- | ----------------- |-| :--: |
