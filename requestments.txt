@@ -1,0 +1,9 @@
+langchain 
+tiktoken 
+pypdf 
+sentence_transformers 
+chromadb 
+langchain-community
+langchain-experimental
+faiss-cpu 
+langchain-openai
