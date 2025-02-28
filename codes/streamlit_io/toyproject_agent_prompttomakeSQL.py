@@ -82,18 +82,61 @@ retriever_tool = create_retriever_tool (
 )
 custom_tool_list = [retriever_tool]
 
+# 기존 agent 코드
 custom_suffix = """
 먼저 제가 알고 있는 비슷한 예제를 가져와야 합니다.
 예제가 쿼리를 구성하기에 충분하다면 쿼리를 작성할 수 있습니다.
 그렇지 않으면 데이터베이스의 테이블을 살펴보고 쿼리할 수 있는 항목을 확인할 수 있습니다.
 그런 다음 가장 관련성이 높은 테이블의 스키마를 쿼리해야 합니다.
 """
-agent = create_sql_agent (
-  llm=llm
-  ,toolkit=toolkit
-  ,verbose=True
-  ,agent_type=AgentType. OPENAI_FUNCTIONS
-  , extra_tools=custom_tool_list, suffix=custom_suffix,
+
+agent = create_sql_agent(
+    llm=llm,
+    toolkit=toolkit,
+    verbose=True,
+    agent_type=AgentType.OPENAI_FUNCTIONS,
+    extra_tools=custom_tool_list, 
+    suffix=custom_suffix,
 )
 
-agent. run("How many employees do we have?")
+from langchain.callbacks.base import BaseCallbackHandler
+
+class MessageCaptureCallback(BaseCallbackHandler):
+    def __init__(self):
+        self.messages = []
+    
+    def on_agent_action(self, action, **kwargs):
+        self.messages.append({"agent_action": str(action)})
+    
+    def on_tool_end(self, output, **kwargs):
+        self.messages.append({"tool_output": output})
+    
+    def on_chain_end(self, outputs, **kwargs):
+        self.messages.append({"chain_output": str(outputs)})
+
+
+message_callback = MessageCaptureCallback()
+
+# 콜백 핸들러를 사용하여 agent 실행
+result = agent.run("How many employees do we have?", callbacks=[message_callback])
+
+# 수집된 모든 메시지 출력
+from pprint import pprint
+
+# 모든 메시지 확인
+print("\n==== 수집된 모든 메시지 ====\n")
+for i, msg in enumerate(message_callback.messages):
+    print(f"메시지 {i+1} : {msg.keys()}):")
+    # pprint(msg, width=100, depth=2)
+    print("-" * 50)
+
+# 결과와 메시지를 변수에 저장
+agent_execution_data = {
+    "final_result": result,
+    "all_messages": message_callback.messages
+}
+
+# 특정 유형의 메시지만 필터링하기 (예: agent_action만 보기)
+agent_actions_only = [msg for msg in message_callback.messages if "agent_action" in msg.keys()]
+print("\n==== Agent 액션만 필터링 ====\n")
+pprint(agent_actions_only)

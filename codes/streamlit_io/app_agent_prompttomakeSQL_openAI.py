@@ -1,3 +1,4 @@
+import json
 import streamlit as st
 import os
 import sqlite3
@@ -26,8 +27,15 @@ col1, col2 = st.columns([3, 2])
 with col1:
     st.title("Chinook DB Natural Language Query")
     st.markdown("""
-    이 애플리케이션은 자연어를 사용하여 Chinook 데이터베이스에 질의할 수 있게 해주는 LLM 에이전트입니다.
-    기술적 장벽 없이 일상 언어로 데이터베이스를 탐색해보세요.
+#### 음악 데이터를 자연어로 탐색하는 새로운 방식
+                
+이 애플리케이션은 복잡한 SQL 없이도 자연어만으로 Chinook 음악 데이터베이스를 쉽게 분석할 수 있게 해주는 AI 기반 솔루션입니다. 일상 언어로 질문하면, 고급 LLM 에이전트가 데이터베이스 쿼리로.변환해 정확한 답변을 제공합니다.
+                
+#### 주요 특징:
+
+- 코드 없는 데이터 분석: "2010년에 가장 많이 판매된 앨범은 무엇인가요?" 같은 질문을 자연스럽게 물어보세요
+- 실시간 인사이트: 복잡한 데이터베이스 지식 없이도 즉시 답변 확인
+- LangChain과 AI 에이전트 기술: 최신 AI 기술로 구현된 지능형 데이터베이스 도우미
     """)
 
 with col2:
@@ -77,12 +85,36 @@ with col_result:
     st.subheader("처리 결과")
     result_container = st.empty()
 
+from langchain.callbacks.base import BaseCallbackHandler
+
+class MessageCaptureCallback(BaseCallbackHandler):
+    def __init__(self):
+        self.messages = []
+    
+    def on_agent_action(self, action, **kwargs):
+        self.messages.append({"agent_action": str(action)})
+    
+    def on_tool_end(self, output, **kwargs):
+        self.messages.append({"tool_output": output})
+    
+    def on_chain_end(self, outputs, **kwargs):
+        self.messages.append({"chain_output": str(outputs)})
+
+
+message_callback = MessageCaptureCallback()
+
 # Function to query the database
 def query_database(query_text, agent_executor):
     try:
         # Execute the query
-        result = agent_executor.run(query_text)
-        return result
+        result = agent_executor.run(query_text, callbacks=[message_callback])
+
+        # 결과와 메시지를 변수에 저장
+        agent_execution_data = {
+            "final_result": result,
+            "all_messages": message_callback.messages
+        }
+        return agent_execution_data
     
     except Exception as e:
         error_msg = f"오류가 발생했습니다: {str(e)}"
@@ -140,26 +172,51 @@ if query_button and user_query:
             with st.spinner('질문을 처리 중입니다...'):
                 try:
                     response = query_database(user_query, st.session_state.agent_executor)
-                    result_container.markdown(f"""
-                    ### 질문:
-                    {user_query}
-                    
-                    ### 답변:
-                    {response}
-                    """)
+
+                    final_answer = response['final_result']
+                    all_messages = response['all_messages']
+
+                    agent_actions_only = []
+                    for msg in all_messages:
+                        if "agent_action" in msg:
+                            agent_actions_only.append("##### " + msg["agent_action"])
+
+                    # 결과 표시 - 백슬래시 문제 해결을 위해 raw string과 join 사용
+                    markdown_output = "### 질문:\n"
+                    markdown_output += user_query + "\n\n"
+                    markdown_output += "### 답변:\n"
+                    markdown_output += final_answer + "\n\n"
+                    markdown_output += "### 주요 추론 과정:\n"
+                    markdown_output += "\n".join(agent_actions_only)
+
+                    result_container.markdown(markdown_output)
                 except Exception as e:
                     st.error(f"처리 중 오류가 발생했습니다: {str(e)}")
     else:
         with st.spinner('질문을 처리 중입니다...'):
             try:
                 response = query_database(user_query, st.session_state.agent_executor)
-                result_container.markdown(f"""
-                ### 질문:
-                {user_query}
-                
-                ### 답변:
-                {response}
-                """)
+
+                final_answer = response['final_result']
+                all_messages = response['all_messages']
+
+                # 특정 유형의 메시지만 필터링하기 (예: agent_action만 보기)
+                agent_actions_only = []
+                agnet_number = 1
+                for idx, msg in enumerate(all_messages):
+                    if "agent_action" in msg:
+                        agent_actions_only.append(str(agnet_number)+". " + msg["agent_action"])
+                        agnet_number += agnet_number
+
+                # 결과 표시 - 백슬래시 문제 해결을 위해 raw string과 join 사용
+                markdown_output = "### 질문:\n"
+                markdown_output += user_query + "\n\n"
+                markdown_output += "### 답변:\n"
+                markdown_output += final_answer + "\n\n"
+                markdown_output += "### 주요 추론 과정:\n"
+                markdown_output += "\n".join(agent_actions_only)
+
+                result_container.markdown(markdown_output)
             except Exception as e:
                 st.error(f"처리 중 오류가 발생했습니다: {str(e)}")
 
