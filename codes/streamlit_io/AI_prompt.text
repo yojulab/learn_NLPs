@@ -1,7 +1,0 @@
-업무 맞게 streamlit로 화면과 기능 작성
-- chinook.db 사용
-
-[업무 정의]
-* 화면 상단 표시 : 기능 설명글, 관련 DB 이미지(https://www.sqlitetutorial.net/wp-content/uploads/2015/11/sqlite-sample-database-color.jpg)
-* DB 관련 질문 입력창
-* 화면 하단 표시 : 예제글 리스트, 선택 시 입력창에 해당 글 자동 입력

@@ -1,0 +1,33 @@
+-------- 1 차 --------------
+업무 맞게 streamlit로 화면과 기능 작성
+- chinook.db 사용
+
+[업무 정의]
+* 화면 상단 표시 : 기능 설명글, 관련 DB 이미지(https://www.sqlitetutorial.net/wp-content/uploads/2015/11/sqlite-sample-database-color.jpg)
+* DB 관련 질문 입력창
+* 화면 하단 표시 : 예제글 리스트, 선택 시 입력창에 해당 글 자동 입력
+
+-------- 3 차 --------------
+주요 사항 맞게 streamlit로 화면과 기능 작성
+- chinook.db 사용
+
+[주요 설명]
+LLM agent 이용한 자연어 질의 통해 기술 장벽 허무는 구현
+
+[화면 구성]
+- 상단  
+ + 좌측 : 제목, 기능 설명글
+ + 우측 : 관련 DB 이미지(https://www.sqlitetutorial.net/wp-content/uploads/2015/11/sqlite-sample-database-color.jpg)
+- 중간 
+ + 좌측 : DB 관련 자연어 질문 입력창, 자연어 질문 예제 5개 선택창
+ + 우측 : langchine agent 처리 결과
+- 하단 
+ + 주의 사항
+
+[주요 기능]
+- 자연어 질문 예제 선택 시 자연어 질문 입력창 표시
+- 결과는 LLM langchine agent 예측 문장 출력
+- 실행 시 모든 에러는 예외처리 적용하고 팝업 메세지 표시
+
+-------- 4 차 --------------
+LLM OpenAI 대신 HuggingFace에서 알맞은 한국어 지원 모델로 대체해 작성

@@ -1,7 +1,7 @@
 import sqlite3
 # 1. 데이터베이스 연결
-conn = sqlite3.connect("codes/streamlit_io/chinook.db")
-cursor = conn.cursor()
+# conn = sqlite3.connect("codes/streamlit_io/chinook.db")
+# cursor = conn.cursor()
 
 # 쿼리 실행 및 결과 출력 (예: 고객 정보 조회)
 # cursor.execute("SELECT CustomerId, FirstName, LastName, Country FROM customers LIMIT 10")
@@ -36,7 +36,7 @@ db = SQLDatabase.from_uri("sqlite:///codes/streamlit_io/chinook.db")
 # print(result)
 
 import os
-os. environ[ "OPENAI_API_KEY"] = ''
+os. environ[ "OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
 
 
 from langchain.agents import AgentType, create_sql_agent
